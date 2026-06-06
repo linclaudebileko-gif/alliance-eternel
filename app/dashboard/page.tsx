@@ -479,71 +479,99 @@ function CoachTab() {
             <div key={i} style={{ display: "flex", gap: 12, justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
               {msg.role === "coach" && (
                 <div style={{
-                  width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
+                  width: 38, height: 38, borderRadius: "50%", flexShrink: 0,
                   background: "linear-gradient(135deg, var(--gold), var(--purple))",
-                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16
+                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17,
+                  color: "#fff", boxShadow: "0 4px 12px rgba(194,113,106,0.25)"
                 }}>✝</div>
               )}
               <div style={{
-                maxWidth: "75%", padding: "14px 18px", borderRadius: 16,
-                background: msg.role === "coach" ? "rgba(124,58,237,0.15)" : "linear-gradient(135deg, var(--gold-dark), var(--gold))",
-                color: msg.role === "user" ? "#0a0612" : "var(--text-primary)",
-                border: msg.role === "coach" ? "1px solid rgba(124,58,237,0.3)" : "none",
-                lineHeight: 1.6, fontSize: 14
+                maxWidth: "76%", padding: "14px 18px",
+                borderRadius: msg.role === "coach" ? "4px 18px 18px 18px" : "18px 4px 18px 18px",
+                background: msg.role === "coach" ? "rgba(253,248,242,0.98)" : "linear-gradient(135deg, var(--gold-dark), var(--gold))",
+                color: msg.role === "user" ? "#fff" : "var(--text-primary)",
+                border: msg.role === "coach" ? "1px solid var(--border)" : "none",
+                lineHeight: 1.75, fontSize: 14,
+                boxShadow: "0 2px 12px rgba(194,113,106,0.10)",
+                whiteSpace: "pre-line"
               }}>
+                {msg.role === "coach" && (
+                  <div style={{ fontSize: 10, color: "var(--gold-dark)", fontWeight: 700, letterSpacing: 1, marginBottom: 6 }}>
+                    COACH ALLIANCE ÉTERNELLE
+                  </div>
+                )}
                 {msg.text}
               </div>
+              {msg.role === "user" && (
+                <div style={{
+                  width: 38, height: 38, borderRadius: "50%", flexShrink: 0,
+                  background: "linear-gradient(135deg, var(--blush), var(--purple-light))",
+                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17
+                }}>💑</div>
+              )}
             </div>
           ))}
+
           {loading && (
             <div style={{ display: "flex", gap: 12 }}>
               <div style={{
-                width: 36, height: 36, borderRadius: "50%",
+                width: 38, height: 38, borderRadius: "50%",
                 background: "linear-gradient(135deg, var(--gold), var(--purple))",
-                display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16
+                display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, color: "#fff"
               }}>✝</div>
               <div style={{
-                padding: "14px 18px", borderRadius: 16,
-                background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)",
+                padding: "14px 18px", borderRadius: "4px 18px 18px 18px",
+                background: "rgba(253,248,242,0.98)", border: "1px solid var(--border)",
                 display: "flex", gap: 6, alignItems: "center"
               }}>
-                {[0,1,2].map(d => (
+                {[0, 1, 2].map(d => (
                   <div key={d} style={{
                     width: 8, height: 8, borderRadius: "50%", background: "var(--gold)",
-                    animation: `pulse-glow 1.2s ease ${d * 0.2}s infinite`
+                    animation: `pulse-glow 1.0s ease ${d * 0.25}s infinite`
                   }} />
                 ))}
+                <span style={{ color: "var(--text-secondary)", fontSize: 12, marginLeft: 6 }}>Le coach réfléchit...</span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Suggestions */}
-        <div style={{ padding: "0 24px 16px", display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <div style={{ padding: "12px 20px", borderTop: "1px solid var(--border)", display: "flex", gap: 8, flexWrap: "wrap", background: "rgba(253,232,228,0.25)" }}>
+          <span style={{ fontSize: 11, color: "var(--text-secondary)", fontWeight: 600, alignSelf: "center", whiteSpace: "nowrap" }}>Suggestions :</span>
           {suggestions.map(s => (
             <button key={s} onClick={() => sendMessage(s)}
               style={{
-                background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)",
-                color: "var(--gold)", padding: "6px 14px", borderRadius: 20, fontSize: 12,
-                cursor: "pointer", fontFamily: "Inter, sans-serif", transition: "all 0.2s"
+                background: "rgba(255,255,255,0.85)", border: "1px solid var(--border)",
+                color: "var(--gold-dark)", padding: "5px 14px", borderRadius: 20, fontSize: 12,
+                cursor: "pointer", fontFamily: "Inter, sans-serif", transition: "all 0.2s", fontWeight: 500
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--gold)";
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(194,113,106,0.08)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
+                (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.85)";
               }}>
               {s}
             </button>
           ))}
         </div>
 
-        {/* Input */}
-        <div style={{ padding: "16px 24px", borderTop: "1px solid var(--border)", display: "flex", gap: 12 }}>
+        <div style={{ padding: "14px 20px", borderTop: "1px solid var(--border)", display: "flex", gap: 10 }}>
           <input
+            id="coach-input"
             value={input}
             onChange={e => setInput(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && sendMessage(input)}
-            placeholder="Posez votre question au coach conjugal..."
+            onKeyDown={e => e.key === "Enter" && !e.shiftKey && sendMessage(input)}
+            placeholder="Parlez librement à votre coach conjugal..."
             style={{
-              flex: 1, background: "rgba(255,255,255,0.04)", border: "1px solid var(--border)",
+              flex: 1, background: "rgba(255,255,255,0.9)", border: "1px solid var(--border)",
               borderRadius: 12, padding: "12px 16px", color: "var(--text-primary)",
-              outline: "none", fontSize: 14, fontFamily: "Inter, sans-serif"
+              outline: "none", fontSize: 14, fontFamily: "Inter, sans-serif", transition: "border 0.2s"
             }}
+            onFocus={e => e.target.style.borderColor = "var(--gold)"}
+            onBlur={e => e.target.style.borderColor = "var(--border)"}
           />
           <button className="btn-gold" onClick={() => sendMessage(input)} style={{ padding: "12px 20px", flexShrink: 0 }}>
             Envoyer →
