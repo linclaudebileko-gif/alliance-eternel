@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+:root {
+  /* Fond : blanc crème doux au lieu du noir profond */
+  --bg-dark: #fdf8f2;
+  --bg-card: #ffffff;
+  --bg-card2: #fef3eb;
+
+  /* Rose doré – couleur principale du mariage */
+  --gold: #c2716a;
+  --gold-light: #e8958d;
+  --gold-dark: #8b3d38;
+
+  /* Violet tendre – accent spirituel */
+  --purple: #9b6fa8;
+  --purple-light: #c49dd0;
+
+  /* Textes lisibles sur fond clair */
+  --text-primary: #2c1a1a;
+  --text-secondary: #7a5c5c;
+
+  /* Bordures douces */
+  --border: #f0d8d0;
+
+  /* États */
+  --success: #2d8653;
+  --warning: #d97706;
+  --danger: #c0392b;
+  --info: #2563eb;
+
+  /* Accents supplémentaires mariage */
+  --blush: #f5c6bc;
+  --ivory: #fdfaf5;
+  --burgundy: #7b2d3e;
+  --sage: #7a9e7e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-playfair, 'Georgia', serif);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #fdeee8; }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* Premium card – fond blanc ivoire avec ombre douce */
+.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(194, 113, 106, 0.08);
+}
+
+/* Gradient texte rose doré mariage */
+.gold-text {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--burgundy));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Buttons */
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+  color: #ffffff;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-inter, sans-serif);
+  letter-spacing: 0.3px;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(194, 113, 106, 0.45);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold-dark);
+  border: 1.5px solid var(--gold);
+  padding: 11px 28px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-inter, sans-serif);
+  font-weight: 600;
+}
+.btn-outline:hover {
+  background: rgba(194, 113, 106, 0.10);
+  transform: translateY(-2px);
+  border-color: var(--gold-dark);
+}
+
+/* Fond mariage : dégradé rose crème chaud */
+.gradient-bg {
+  background: radial-gradient(
+    ellipse at top left,
+    #fde8e4 0%,
+    #fdf8f2 45%,
+    #f5eef8 100%
+  );
+}
+
+/* Nav link */
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--gold);
+  background: rgba(194, 113, 106, 0.10);
+}
+
+/* Score ring */
+.score-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(194,113,106,0.3); }
+  50% { box-shadow: 0 0 28px rgba(194,113,106,0.55); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-fade-up { animation: fadeInUp 0.6s ease both; }
+.animate-fade-up-delay { animation: fadeInUp 0.6s ease 0.2s both; }
+.animate-fade-up-delay2 { animation: fadeInUp 0.6s ease 0.4s both; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
